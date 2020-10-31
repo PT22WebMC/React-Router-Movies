@@ -4,16 +4,16 @@ import axios from "axios";
 
 export default function Movie(props) {
   const [movie, setMovie] = useState();
-  const params = useParams();
-  let id = movie.find((item) => item.id === Number(params.id));
+  const { id } = useParams();
+
   // Change ^^^ that line and use a hook to obtain the :id parameter from the URL
 
   useEffect(() => {
     axios
       .get(`http://localhost:5000/api/movies/${id}`) // Study this endpoint with Postman
       .then((response) => {
-        console.log(response);
-        setMovie(response);
+        console.log("R ", response.data);
+        setMovie(response.data);
         // Study this response with a breakpoint or log statements
         // and set the response data as the 'movie' slice of state
       })
@@ -32,7 +32,7 @@ export default function Movie(props) {
   }
 
   const { title, director, metascore, stars } = movie;
-
+  console.log("M", movie);
   return (
     <div className='save-wrapper'>
       <div className='movie-card'>
